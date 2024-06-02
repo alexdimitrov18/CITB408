@@ -1,12 +1,11 @@
 package org.example.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
+@Entity
+@Table(name = "cashier")
 public class Cashier {
 
 

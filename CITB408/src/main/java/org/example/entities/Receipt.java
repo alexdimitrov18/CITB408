@@ -1,36 +1,38 @@
 package org.example.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
+@Table(name = "receipt")
 public class Receipt {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @ManyToMany
     @NotBlank(message = "Cashier fields cannot be blank!")
     private Cashier cashier;
     @Column(name = "sale_date", nullable = false)
     private LocalDateTime sale_date;
-
-    private List<Goods> goods;
+    @Column(name = "total_price", nullable = false)
+    @Positive
+    private Double totalPrice;
 
     public Receipt() {
     }
 
-    public Receipt(long id, Cashier cashier, LocalDateTime sale_date, List<Goods> goods) {
+    public Receipt(long id, Cashier cashier, LocalDateTime sale_date, Double totalPrice) {
         this.id = id;
         this.cashier = cashier;
         this.sale_date = sale_date;
-        this.goods = goods;
+        this.totalPrice = totalPrice;
     }
 
     public long getId() {
@@ -57,25 +59,24 @@ public class Receipt {
         this.sale_date = sale_date;
     }
 
-    public List<Goods> getGoods() {
-        return goods;
+    public Double getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setGoods(List<Goods> goods) {
-        this.goods = goods;
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Receipt receipt = (Receipt) o;
-        return id == receipt.id && Objects.equals(cashier, receipt.cashier) && Objects.equals(sale_date, receipt.sale_date) && Objects.equals(goods, receipt.goods);
+        if (!(o instanceof Receipt receipt)) return false;
+        return id == receipt.id && Objects.equals(cashier, receipt.cashier) && Objects.equals(sale_date, receipt.sale_date) && Objects.equals(totalPrice, receipt.totalPrice);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, cashier, sale_date, goods);
+        return Objects.hash(id, cashier, sale_date, totalPrice);
     }
 
     @Override
@@ -84,7 +85,7 @@ public class Receipt {
                 "id=" + id +
                 ", cashier=" + cashier +
                 ", sale_date=" + sale_date +
-                ", goods=" + goods +
+                ", totalPrice=" + totalPrice +
                 '}';
     }
 }
