@@ -86,7 +86,6 @@ public class ClientDao {
             return clients;
         }
     }
-    // I could've made it within a single one instead of 2 but I decided to follow the lectures
     public static List<Client> clientsWithNameNotEqualTo(String name) {
         try (Session session = SessionUtil.getSessionFactory().openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
@@ -130,37 +129,23 @@ public class ClientDao {
      * Selecting Clients table and joining company by ids
 
      */
-    public static Set<Company> getClientsCompany(long id) {
-        Client client;
-        try (Session session = SessionUtil.getSessionFactory().openSession()) {
-            Transaction transaction = session.beginTransaction();
-            client = session.createQuery(
-                            "select c from Client c" +
-                                    " join fetch c.company" +
-                                    " where c.id = :id",
-                            Client.class)
-                    .setParameter("id", id)
-                    .getSingleResult();
-            transaction.commit();
-        }
-        return client.getCompany();
-    }
+//    public static Set<Company> getClientsCompany(long id) {
+//        Client client;
+//        try (Session session = SessionUtil.getSessionFactory().openSession()) {
+//            Transaction transaction = session.beginTransaction();
+//            client = session.createQuery(
+//                            "select c from Client c" +
+//                                    " join fetch c.company" +
+//                                    " where c.id = :id",
+//                            Client.class)
+//                    .setParameter("id", id)
+//                    .getSingleResult();
+//            transaction.commit();
+//        }
+//        return client.getCompany();
+//    }
     // Select clients and join purchases (if we want to check if its paid or not we join table Receipts instead)
-    public static Set<Purchase> getClientsPurchase(long id) {
-        Client client;
-        try (Session session = SessionUtil.getSessionFactory().openSession()) {
-            Transaction transaction = session.beginTransaction();
-            client = session.createQuery(
-                            "select c from Client c" +
-                                    " join fetch c.purchases" +
-                                    " where c.id = :id",
-                            Client.class)
-                    .setParameter("id", id)
-                    .getSingleResult();
-            transaction.commit();
-        }
-        return client.getPurchases();
-    }
+
 
 
 }

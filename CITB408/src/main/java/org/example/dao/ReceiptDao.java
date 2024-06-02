@@ -61,35 +61,6 @@ public class ReceiptDao {
             transaction.commit();
         }
     }
-    public static Client getReceiptsClient(long id) {  // Check the receipt to see which client made the purchase for it
-        Receipt receipt;
-        try (Session session = SessionUtil.getSessionFactory().openSession()) {
-            Transaction transaction = session.beginTransaction();
-            receipt = session.createQuery(
-                            "select c from Receipt c" +
-                                    " join fetch c.clients" +
-                                    " where c.id = :id",
-                            Receipt.class)
-                    .setParameter("id", id)
-                    .getSingleResult();
-            transaction.commit();
-        }
-        return receipt.getClients();
-    }
-    public static Purchase getReceiptsPurchase(long id) {  // receipt for the payment of the delivery
-        Receipt receipt;
-        try (Session session = SessionUtil.getSessionFactory().openSession()) {
-            Transaction transaction = session.beginTransaction();
-            receipt = session.createQuery(
-                            "select c from Receipt c" +
-                                    " join fetch c.purchases" +
-                                    " where c.id = :id",
-                            Receipt.class)
-                    .setParameter("id", id)
-                    .getSingleResult();
-            transaction.commit();
-        }
-        return receipt.getPurchases();
-    }
+
 
 }
