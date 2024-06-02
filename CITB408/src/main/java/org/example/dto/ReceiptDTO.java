@@ -1,49 +1,36 @@
-package org.example.entities;
+package org.example.dto;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
+import org.example.entities.Cashier;
+import org.example.entities.Goods;
+import org.example.entities.Receipt;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
-@Entity
-@Table(name = "receipt")
-public class Receipt {
+public class ReceiptDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private long id;
 
-    @ManyToMany
-    @NotBlank(message = "Cashier fields cannot be blank!")
     private Cashier cashier;
-    @Column(name = "sale_date", nullable = false)
     private LocalDateTime sale_date;
-    @Column(name = "total_price", nullable = false)
-    @Positive
+    private List<Integer> countGoods;
+
+    private List<Goods> goods;
     private Double totalPrice;
 
-    @NotBlank(message = "Cashier fields cannot be blank!")
-    private Store store;
-    public Receipt() {
+    public ReceiptDTO() {
     }
 
-    public Receipt(long id, Cashier cashier, LocalDateTime sale_date, Double totalPrice, Store store) {
+    public ReceiptDTO(long id, Cashier cashier, LocalDateTime sale_date, Double totalPrice) {
         this.id = id;
         this.cashier = cashier;
         this.sale_date = sale_date;
         this.totalPrice = totalPrice;
-        this.store = store;
-    }
-
-    public Store getStore() {
-        return store;
-    }
-
-    public void setStore(Store store) {
-        this.store = store;
     }
 
     public long getId() {
@@ -78,12 +65,6 @@ public class Receipt {
         this.totalPrice = totalPrice;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Receipt receipt)) return false;
-        return id == receipt.id && Objects.equals(cashier, receipt.cashier) && Objects.equals(sale_date, receipt.sale_date) && Objects.equals(totalPrice, receipt.totalPrice);
-    }
 
     @Override
     public String toString() {
@@ -92,7 +73,6 @@ public class Receipt {
                 ", cashier=" + cashier +
                 ", sale_date=" + sale_date +
                 ", totalPrice=" + totalPrice +
-                ", store=" + store +
                 '}';
     }
 }

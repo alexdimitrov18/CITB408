@@ -21,8 +21,8 @@ public class Main {
 
 
 
-        Dummy_data dummy ;
-        dummy   = new Dummy_data ();
+        Mock_data dummy ;
+        dummy   = new Mock_data();
         dummy.dummy();
 
 

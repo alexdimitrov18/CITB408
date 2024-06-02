@@ -5,6 +5,7 @@ import org.example.entities.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class ReceiptDao {
@@ -19,6 +20,21 @@ public class ReceiptDao {
      *getReceiptsPurchase -> receipt for the payment of the delivery
      */
     public static void createReceipt(Receipt receipt ) {  // C from crud
+        try(Session session = SessionUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+            session.save(receipt);
+            transaction.commit();
+        }
+    }
+    public static void createSafeReceipt(Receipt receipt ) {  // C from crud
+        Store store = receipt.getStore();
+        Cashier cashier = receipt.getCashier();
+        LocalDateTime sale_date = receipt.getSale_date();
+        Double total_price = receipt.getTotalPrice();
+        Warehouse warehouse = store.getWarehouse();
+
+
+
         try(Session session = SessionUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.save(receipt);

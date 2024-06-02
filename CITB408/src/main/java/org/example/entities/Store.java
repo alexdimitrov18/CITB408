@@ -1,6 +1,7 @@
 package org.example.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Positive;
 
 import java.util.List;
 
@@ -16,14 +17,26 @@ public class Store {
 
     private Warehouse warehouse;
 
+    @Positive
+    private double spoilDiscount;
+
 
     public Store() {
     }
 
-    public Store(long id, List<Terminal> terminals, Warehouse warehouse) {
+    public Store(long id, List<Terminal> terminals, Warehouse warehouse, double spoilDiscount) {
         this.id = id;
         this.terminals = terminals;
         this.warehouse = warehouse;
+        this.spoilDiscount = spoilDiscount;
+    }
+
+    public double getSpoilDiscount() {
+        return spoilDiscount;
+    }
+
+    public void setSpoilDiscount(double spoilDiscount) {
+        this.spoilDiscount = spoilDiscount;
     }
 
     public long getId() {
