@@ -1,31 +1,36 @@
 package org.example.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
-@Entity
-@Table(name = "receipt")
 public class Receipt {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne
-    private Client clients;
+    @NotBlank(message = "Cashier fields cannot be blank!")
+    private Cashier cashier;
+    @Column(name = "sale_date", nullable = false)
+    private LocalDateTime sale_date;
 
-    @ManyToOne
-    private Purchase purchases;
+    private List<Goods> goods;
 
     public Receipt() {
     }
 
-    public Receipt(long id, Client clients, Purchase purchases) {
+    public Receipt(long id, Cashier cashier, LocalDateTime sale_date, List<Goods> goods) {
         this.id = id;
-        this.clients = clients;
-        this.purchases = purchases;
+        this.cashier = cashier;
+        this.sale_date = sale_date;
+        this.goods = goods;
     }
 
     public long getId() {
@@ -36,20 +41,28 @@ public class Receipt {
         this.id = id;
     }
 
-    public Client getClients() {
-        return clients;
+    public Cashier getCashier() {
+        return cashier;
     }
 
-    public void setClients(Client clients) {
-        this.clients = clients;
+    public void setCashier(Cashier cashier) {
+        this.cashier = cashier;
     }
 
-    public Purchase getPurchases() {
-        return purchases;
+    public LocalDateTime getSale_date() {
+        return sale_date;
     }
 
-    public void setPurchases(Purchase purchases) {
-        this.purchases = purchases;
+    public void setSale_date(LocalDateTime sale_date) {
+        this.sale_date = sale_date;
+    }
+
+    public List<Goods> getGoods() {
+        return goods;
+    }
+
+    public void setGoods(List<Goods> goods) {
+        this.goods = goods;
     }
 
     @Override
@@ -57,12 +70,21 @@ public class Receipt {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Receipt receipt = (Receipt) o;
-        return id == receipt.id;
+        return id == receipt.id && Objects.equals(cashier, receipt.cashier) && Objects.equals(sale_date, receipt.sale_date) && Objects.equals(goods, receipt.goods);
     }
-
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, cashier, sale_date, goods);
+    }
+
+    @Override
+    public String toString() {
+        return "Receipt{" +
+                "id=" + id +
+                ", cashier=" + cashier +
+                ", sale_date=" + sale_date +
+                ", goods=" + goods +
+                '}';
     }
 }

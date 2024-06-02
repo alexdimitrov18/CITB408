@@ -30,12 +30,11 @@ public class Goods {
     // A client can make multiple purchases
     @Column(name = "expiration_date", nullable = false)
     private LocalDateTime expiration_date;
-    // One client can have many receipts
 
     public Goods() {
     }
 
-    public Goods(long id, String name, Double deliveryPrice, Boolean spoilable, LocalDateTime expiration_date, Set<Receipt> receipts) {
+    public Goods(long id, String name, Double deliveryPrice, Boolean spoilable, LocalDateTime expiration_date) {
         this.id = id;
         this.name = name;
         this.deliveryPrice = deliveryPrice;
