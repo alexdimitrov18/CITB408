@@ -2,6 +2,7 @@ package org.example.configuration;
 
 
 
+import org.example.entities.Warehouse;
 import org.example.entities.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -14,13 +15,12 @@ public class SessionUtil {
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
             Configuration configuration = new Configuration();
-            configuration.addAnnotatedClass(Company.class); //We have to add each class in the session
-            configuration.addAnnotatedClass(Vehicle.class);
-            configuration.addAnnotatedClass(Employee.class);
-            configuration.addAnnotatedClass(Skill.class);
+            configuration.addAnnotatedClass(Cashier.class); //We have to add each class in the session
             configuration.addAnnotatedClass(Client.class);
-            configuration.addAnnotatedClass(Purchase.class);
-            configuration.addAnnotatedClass(Payload.class);
+            configuration.addAnnotatedClass(Receipt.class);
+            configuration.addAnnotatedClass(Warehouse.class);
+            configuration.addAnnotatedClass(Goods.class);
+            configuration.addAnnotatedClass(Store.class);
             configuration.addAnnotatedClass(Receipt.class);
 
             ServiceRegistry serviceRegistry

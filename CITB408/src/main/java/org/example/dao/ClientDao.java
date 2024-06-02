@@ -5,15 +5,11 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import org.example.configuration.SessionUtil;
 import org.example.entities.Client;
-import org.example.entities.Company;
-import org.example.entities.Employee;
-import org.example.entities.Purchase;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import java.util.List;
-import java.util.Set;
 
 public class ClientDao {
     /**
