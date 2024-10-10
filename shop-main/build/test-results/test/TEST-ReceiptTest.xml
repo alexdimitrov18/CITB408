@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ReceiptTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2024-10-07T19:41:55" hostname="DESKTOP-LEC21QP" time="3.528">
+  <properties/>
+  <testcase name="when_food_category_item_has_valid_expiration_date_then_price_is_calculated_correctly()" classname="ReceiptTest" time="0.077"/>
+  <testcase name="when_add_single_item_quantity_to_empty_receipt_then_item_is_added()" classname="ReceiptTest" time="0.003"/>
+  <testcase name="when_multiple_items_in_receipt_then_total_cost_is_calculated_correctly()" classname="ReceiptTest" time="3.374"/>
+  <testcase name="when_food_category_item_has_past_expiration_date_then_item_out_of_date_exception_is_thrown()" classname="ReceiptTest" time="0.027"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
